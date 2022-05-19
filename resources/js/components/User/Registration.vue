@@ -5,6 +5,7 @@
             <input v-model="email" type="email" class="form-control mb-2" placeholder="Email">
             <input v-model="password" type="password" class="form-control mb-2" placeholder="Password">
             <input v-model="password_confirmation" type="password" class="form-control mb-2" placeholder="Confirm password">
+            <div v-if="error" class="text-danger mb-1">{{ error }}</div>
             <input @click.prevent="store" type="submit" class="btn btn-primary">
         </div>
     </div>
@@ -20,6 +21,7 @@ export default {
             email: null,
             password: null,
             password_confirmation: null,
+            error: null,
         }
     },
 
@@ -31,7 +33,11 @@ export default {
         store() {
             axios.post('/api/users', {name: this.name, email: this.email, password: this.password, password_confirmation: this.password_confirmation})
             .then(res => {
-                console.log(res);
+                localStorage.setItem('access_token', res.data.access_token)
+                this.$router.push({name: 'user.personal'})
+            })
+            .catch(err => {
+                this.error = err.response.data.error;
             })
         }
     }

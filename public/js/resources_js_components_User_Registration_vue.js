@@ -33,8 +33,7 @@ __webpack_require__.r(__webpack_exports__);
       password_confirmation: null
     };
   },
-  mounted: function mounted() {
-    console.log(localStorage.getItem('access_token'));
+  mounted: function mounted() {// console.log(localStorage.getItem('access_token'));
   },
   methods: {
     store: function store() {
